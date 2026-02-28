@@ -13,7 +13,29 @@ export default defineConfig({
     projectId: 'qxbgy1nd',
     dataset: 'production',
 
-    plugins: [structureTool(), visionTool()],
+    plugins: [
+        structureTool({
+            structure: (S) =>
+                S.list()
+                    .title('Contenido')
+                    .items([
+                        // Ajustes Generales (Singleton)
+                        S.listItem()
+                            .title('Ajustes Generales')
+                            .id('ajustes')
+                            .child(
+                                S.document()
+                                    .schemaType('ajustes')
+                                    .documentId('ajustes')
+                            ),
+                        S.divider(),
+                        // Resto de documentos
+                        ...S.documentTypeListItems().filter(
+                            (listItem) => !['ajustes'].includes(listItem.getId())
+                        ),
+                    ]),
+        }),
+    ],
 
     schema: {
         types: [curso, post, anuncio, ajustes],
