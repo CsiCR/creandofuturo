@@ -25,7 +25,8 @@ const OfertaAcademica = () => {
             salidaLaboral,
             destacado,
             certificacion,
-            estado
+            estado,
+            linkInscripcion
         }`;
 
         client.fetch(query)

@@ -20,15 +20,15 @@ const CourseCard = ({ curso }) => {
             </div>
             <div className="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
                 <Button
-                    to={curso.modalidad === 'Presencial' ? `/inscripciones?curso=${curso.id}` : '#'}
+                    to={curso.estado === 'abierta' && curso.linkInscripcion ? curso.linkInscripcion : '#'}
                     variant={curso.destacado ? "primary" : "outline"}
                     className={clsx(
-                        "w-full text-sm py-2",
-                        curso.modalidad !== 'Presencial' && "opacity-50 cursor-not-allowed"
+                        "w-full text-sm py-2 transition-colors",
+                        (curso.estado !== 'abierta' || !curso.linkInscripcion) && "opacity-50 cursor-not-allowed"
                     )}
-                    onClick={(e) => curso.modalidad !== 'Presencial' && e.preventDefault()}
+                    onClick={(e) => (curso.estado !== 'abierta' || !curso.linkInscripcion) && e.preventDefault()}
                 >
-                    {curso.modalidad === 'Presencial' ? 'Me interesa' : 'Próximamente'}
+                    {curso.estado === 'abierta' ? 'Inscribirse ahora' : 'Inscripciones cerradas'}
                 </Button>
             </div>
         </div>

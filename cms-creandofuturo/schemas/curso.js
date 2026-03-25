@@ -53,6 +53,12 @@ export default {
             name: 'certificacion',
             title: 'Certificación que otorga',
             type: 'string'
+        },
+        {
+            name: 'linkInscripcion',
+            title: 'Link de Inscripción (Ej: URL de Google Forms)',
+            type: 'url',
+            description: 'Link al formulario para pre-inscribirse. Dejar en blanco si no aplica.'
         }
     ]
 }
