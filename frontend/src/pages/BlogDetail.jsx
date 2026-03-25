@@ -6,6 +6,12 @@ import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
 import Badge from '../components/Badge';
 import { useSEO } from '../utils/seo';
 
+const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
+};
+
 const BlogDetail = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
@@ -83,7 +89,7 @@ const BlogDetail = () => {
                         <div className="flex flex-wrap items-center gap-6 text-ps-gray text-xs font-bold uppercase tracking-wider pt-2 border-b border-gray-100 pb-6">
                             <div className="flex items-center space-x-2">
                                 <Calendar size={14} className="text-ps-green" />
-                                <span>{post.fecha}</span>
+                                <span>{formatDate(post.fecha)}</span>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <User size={14} className="text-ps-green" />

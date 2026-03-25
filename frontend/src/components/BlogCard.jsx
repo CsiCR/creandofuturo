@@ -2,6 +2,12 @@ import { Link } from 'react-router-dom';
 import { Clock, Calendar, ChevronRight } from 'lucide-react';
 import Badge from './Badge';
 
+const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
+};
+
 const BlogCard = ({ post }) => {
     return (
         <article className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full hover:shadow-md transition-all duration-300">
@@ -22,7 +28,7 @@ const BlogCard = ({ post }) => {
             <div className="p-6 flex-grow space-y-4">
                 <div className="flex items-center space-x-2 text-[10px] font-bold text-ps-gray uppercase tracking-widest">
                     <Calendar size={12} className="text-ps-green" />
-                    <span>{post.fecha}</span>
+                    <span>{formatDate(post.fecha)}</span>
                 </div>
                 <h3 className="text-xl font-black italic italic leading-none text-ps-black group-hover:text-ps-green transition-colors">
                     {post.titulo}

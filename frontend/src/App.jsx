@@ -8,6 +8,7 @@ import OfertaAcademica from './pages/OfertaAcademica';
 import Inscripciones from './pages/Inscripciones';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
+import Comunidad from './pages/Comunidad';
 import Contacto from './pages/Contacto';
 
 const NotFound = () => (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/oferta-academica" element={<OfertaAcademica />} />
           <Route path="/inscripciones" element={<Inscripciones />} />
+          <Route path="/la-comunidad" element={<Comunidad />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/contacto" element={<Contacto />} />

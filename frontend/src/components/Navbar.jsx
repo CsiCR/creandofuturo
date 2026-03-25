@@ -23,6 +23,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Inicio', path: '/' },
         { name: 'Quiénes Somos', path: '/quienes-somos' },
+        { name: 'La Comunidad', path: '/la-comunidad' },
         { name: 'Oferta Académica', path: '/oferta-academica' },
         { name: `Inscripciones ${inscripEtiqueta}`, path: '/inscripciones', highlight: true },
         { name: 'Blog', path: '/blog' },
