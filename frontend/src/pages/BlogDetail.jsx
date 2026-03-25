@@ -119,7 +119,6 @@ const BlogDetail = () => {
                             </div>
                             <div>
                                 <p className="text-xs font-black italic italic leading-none">{post.autor}</p>
-                                <p className="text-[10px] text-ps-gray uppercase">Autor Principal</p>
                             </div>
                         </div>
                         <button
