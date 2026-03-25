@@ -43,8 +43,8 @@ const Home = () => {
                                 Formamos agentes de cambio en Pico Truncado para intervenir en la salud mental comunitaria y el desarrollo humano.
                             </p>
                             <div className="flex flex-wrap gap-4 pt-4">
-                                <Button to="/inscripciones" variant="primary">Inscribite ahora</Button>
-                                <Button to="/oferta-academica" variant="outline" className="text-ps-white hover:text-ps-black">Ver oferta académica</Button>
+                                <Button to="/oferta-academica" variant="primary">Inscribite ahora</Button>
+                                <Button to="/quienes-somos" variant="outline" className="text-ps-white hover:text-ps-black">Conocé la institución</Button>
                             </div>
                         </div>
                         <div className="hidden lg:flex justify-center">
@@ -136,7 +136,7 @@ const Home = () => {
                         <div className="bg-ps-black p-8 rounded-2xl text-ps-white flex flex-col justify-center">
                             <h3 className="text-xl font-bold mb-4 italic italic leading-none text-ps-green">"La inscripción se confirma únicamente al abonar la matrícula."</h3>
                             <p className="text-sm text-gray-400 mb-6">Asegurá tu lugar hoy mismo y comenzá en Marzo.</p>
-                            <Button to="/inscripciones" variant="primary" className="w-full">
+                            <Button to="/oferta-academica" variant="primary" className="w-full">
                                 Quiero inscribirme <ArrowRight size={18} className="ml-2" />
                             </Button>
                         </div>
