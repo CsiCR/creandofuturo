@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Share2 } from 'lucide-react';
 
 const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -17,6 +17,25 @@ const ComunidadPost = ({ post }) => {
 
     const prevSlide = () => {
         setCurrentSlide((prev) => (prev === 0 ? archivos.length - 1 : prev - 1));
+    };
+
+    const handleShare = async () => {
+        const shareData = {
+            title: post.titulo ? `Creando Futuro - ${post.titulo}` : 'Novedad en Creando Futuro',
+            text: post.descripcion,
+            url: window.location.href,
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                await navigator.clipboard.writeText(window.location.href);
+                alert('¡Enlace de la sección copiado al portapapeles!');
+            }
+        } catch (err) {
+            console.error('Error al compartir:', err);
+        }
     };
 
     return (
@@ -99,9 +118,18 @@ const ComunidadPost = ({ post }) => {
 
             {/* Body */}
             <div className="p-4 space-y-3">
-                <div className="flex items-center space-x-2 text-xs font-bold text-ps-gray uppercase tracking-widest">
-                    <Calendar size={12} className="text-ps-green" />
-                    <span>{formatDate(post.fecha)}</span>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2 text-xs font-bold text-ps-gray uppercase tracking-widest">
+                        <Calendar size={12} className="text-ps-green" />
+                        <span>{formatDate(post.fecha)}</span>
+                    </div>
+                    <button
+                        onClick={handleShare}
+                        className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 text-ps-gray hover:text-ps-green transition-colors cursor-pointer"
+                        title="Compartir"
+                    >
+                        <Share2 size={20} />
+                    </button>
                 </div>
                 
                 <p className="text-sm text-ps-black leading-relaxed whitespace-pre-wrap">
