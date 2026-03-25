@@ -25,7 +25,7 @@ const Navbar = () => {
         { name: 'Quiénes Somos', path: '/quienes-somos' },
         { name: 'La Comunidad', path: '/la-comunidad' },
         { name: 'Oferta Académica', path: '/oferta-academica' },
-        { name: `Inscripciones ${inscripEtiqueta}`, path: '/inscripciones', highlight: true },
+        { name: `Inscripciones ${inscripEtiqueta}`, path: '/oferta-academica', highlight: true },
         { name: 'Blog', path: '/blog' },
         { name: 'Contacto', path: '/contacto' },
     ];
@@ -54,10 +54,10 @@ const Navbar = () => {
                                 to={link.path}
                                 className={clsx(
                                     "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200",
-                                    location.pathname === link.path
-                                        ? "text-ps-green font-bold"
-                                        : link.highlight
-                                            ? "bg-ps-red text-white hover:bg-red-600 animate-pulse-subtle"
+                                    link.highlight
+                                        ? "bg-ps-red text-white hover:bg-red-600 animate-pulse-subtle"
+                                        : location.pathname === link.path
+                                            ? "text-ps-green font-bold"
                                             : "text-ps-gray hover:text-ps-green"
                                 )}
                             >
@@ -89,10 +89,10 @@ const Navbar = () => {
                                 onClick={() => setIsOpen(false)}
                                 className={clsx(
                                     "block px-3 py-4 rounded-md text-base font-semibold",
-                                    location.pathname === link.path
-                                        ? "text-ps-green bg-gray-50"
-                                        : link.highlight
-                                            ? "text-ps-red border-l-4 border-ps-red"
+                                    link.highlight
+                                        ? "text-ps-red border-l-4 border-ps-red"
+                                        : location.pathname === link.path
+                                            ? "text-ps-green bg-gray-50"
                                             : "text-ps-gray hover:text-ps-green hover:bg-gray-50"
                                 )}
                             >
