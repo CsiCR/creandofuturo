@@ -3,39 +3,53 @@ import { useLocation } from 'react-router-dom';
 import { client } from '../utils/sanityClient';
 import CourseCard from '../components/CourseCard';
 import Badge from '../components/Badge';
+import Button from '../components/Button';
 import { useSEO } from '../utils/seo';
 import { clsx } from 'clsx';
+import { MessageCircle } from 'lucide-react';
+import { getWhatsAppLink } from '../utils/whatsapp';
 
 const OfertaAcademica = () => {
     useSEO("Oferta Académica", "Explorá nuestros cursos y carreras en Psicología Social y Salud Mental en Pico Truncado.");
 
     const [cursos, setCursos] = useState([]);
+    const [settings, setSettings] = useState(null);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('Todos');
     const modalidades = ['Todos', 'Presencial', 'Híbrida', 'Virtual'];
 
     useEffect(() => {
-        const query = `*[_type == "curso"] {
-            id,
-            titulo,
-            descripcion,
-            duracion,
-            modalidad,
-            perfilEgresado,
-            salidaLaboral,
-            destacado,
-            certificacion,
-            estado,
-            linkInscripcion
+        const query = `{
+            "cursos": *[_type == "curso"] {
+                id,
+                titulo,
+                descripcion,
+                duracion,
+                modalidad,
+                perfilEgresado,
+                salidaLaboral,
+                destacado,
+                certificacion,
+                estado,
+                linkInscripcion
+            },
+            "ajustes": *[_type == "ajustes"][0] { telefono, inscripcionesEtiqueta }
         }`;
 
         client.fetch(query)
             .then((data) => {
-                setCursos(data);
+                setCursos(data.cursos);
+                setSettings(data.ajustes);
                 setLoading(false);
             })
             .catch(console.error);
     }, []);
+
+    const inscripData = {
+        phone: settings?.telefono || "5492974277686"
+    };
+
+    const inscriptionMessage = `Hola! Ya completé el formulario de pre-inscripción. ¿Me pasás info de pago de la matrícula por favor?`;
 
     const filteredCursos = filter === 'Todos'
         ? cursos
@@ -89,6 +103,20 @@ const OfertaAcademica = () => {
                         <p className="text-ps-gray italic italic leading-none">Próximamente más cursos en esta modalidad.</p>
                     </div>
                 )}
+
+                {/* Banner de Pago de Matrícula */}
+                <div className="mt-16 bg-ps-black p-8 md:p-12 rounded-3xl text-ps-white shadow-2xl max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
+                    <p className="text-lg md:text-xl text-gray-300">
+                        Si ya completaste el formulario y necesitás la info de pago, hacé click debajo:
+                    </p>
+                    <Button
+                        to={getWhatsAppLink(inscripData.phone, inscriptionMessage)}
+                        variant="primary"
+                        className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white border-none py-4 px-8 text-lg flex items-center justify-center whitespace-nowrap"
+                    >
+                        Pedir datos de matrícula <MessageCircle size={24} className="ml-3" />
+                    </Button>
+                </div>
             </div>
         </div>
     );
