@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import Badge from '../components/Badge';
 import { useSEO } from '../utils/seo';
 import { client } from '../utils/sanityClient';
+import { getWhatsAppLink, CONTACT_PHONE } from '../utils/whatsapp';
 
 const Home = () => {
     const [settings, setSettings] = useState(null);
@@ -127,8 +128,16 @@ const Home = () => {
                                 <div className="flex space-x-4 p-4 bg-white rounded-lg shadow-sm">
                                     <GraduationCap className="text-ps-green shrink-0" />
                                     <div>
-                                        <h4 className="font-bold">Matrícula {inscripData.etiqueta}</h4>
-                                        <p className="text-sm text-ps-gray italic italic leading-none">${inscripData.precio} (Promoción hasta {inscripData.vencimiento}).</p>
+                                        <h4 className="font-bold">
+                                            Matrícula, <a 
+                                                href={getWhatsAppLink(CONTACT_PHONE, "Hola! Quisiera consultar el valor de la matrícula.")} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                className="text-ps-green hover:underline"
+                                            >
+                                                consultar
+                                            </a>
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
