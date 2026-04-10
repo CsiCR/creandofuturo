@@ -8,7 +8,7 @@ const AnnouncementBanner = () => {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        const query = `*[_type == "anuncio" && activo == true][0] {
+        const query = `*[_type == "anuncio" && activo == true] | order(_updatedAt desc) {
             mensaje,
             link,
             fechaInicio,
@@ -17,14 +17,18 @@ const AnnouncementBanner = () => {
 
         client.fetch(query)
             .then((data) => {
-                if (data) {
+                if (data && data.length > 0) {
                     const now = new Date();
-                    const start = new Date(data.fechaInicio);
-                    const end = data.fechaFin ? new Date(data.fechaFin) : null;
+                    
+                    // Buscar el primer banner que cumpla la condición de fechas
+                    const validBanner = data.find(item => {
+                        const start = new Date(item.fechaInicio);
+                        const end = item.fechaFin ? new Date(item.fechaFin) : null;
+                        return now >= start && (!end || now <= end);
+                    });
 
-                    // Lógica de programación horaria
-                    if (now >= start && (!end || now <= end)) {
-                        setBanner(data);
+                    if (validBanner) {
+                        setBanner(validBanner);
                     }
                 }
             })
