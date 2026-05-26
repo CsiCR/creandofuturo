@@ -14,7 +14,7 @@ const Inscripciones = () => {
     const [step, setStep] = useState(1);
 
     useEffect(() => {
-        const query = '*[_type == "ajustes"][0] { telefono, inscripcionesEtiqueta, inscripcionesPrecio, inscripcionesVencimiento }';
+        const query = '*[_id == "ajustes"][0] { telefono, inscripcionesEtiqueta, inscripcionesPrecio, inscripcionesVencimiento }';
         client.fetch(query)
             .then(data => {
                 setSettings(data);

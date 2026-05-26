@@ -7,7 +7,7 @@ const FloatingWhatsApp = () => {
     const [phone, setPhone] = useState(CONTACT_PHONE);
 
     useEffect(() => {
-        const query = '*[_type == "ajustes"][0] { telefono }';
+        const query = '*[_id == "ajustes"][0] { telefono }';
         client.fetch(query)
             .then(data => {
                 if (data?.telefono) setPhone(data.telefono);

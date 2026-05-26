@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, CheckCircle, GraduationCap, Users, ShieldCheck, Calendar } from 'lucide-react';
 import Button from '../components/Button';
 import Badge from '../components/Badge';
+import HeroCarousel from '../components/HeroCarousel';
 import { useSEO } from '../utils/seo';
 import { client } from '../utils/sanityClient';
 import { getWhatsAppLink, CONTACT_PHONE } from '../utils/whatsapp';
@@ -10,7 +11,7 @@ const Home = () => {
     const [settings, setSettings] = useState(null);
 
     useEffect(() => {
-        const query = '*[_type == "ajustes"][0] { inscripcionesEtiqueta, inscripcionesPrecio, inscripcionesVencimiento }';
+        const query = '*[_id == "ajustes"][0] { inscripcionesEtiqueta, inscripcionesPrecio, inscripcionesVencimiento, carruselHero }';
         client.fetch(query)
             .then(data => setSettings(data))
             .catch(console.error);
@@ -21,6 +22,22 @@ const Home = () => {
         precio: settings?.inscripcionesPrecio || "30.000",
         vencimiento: (settings?.inscripcionesVencimiento || "28/02/2026").replace(/-/g, '/')
     };
+
+    // Filtrar diapositivas del carrusel vigentes y ordenadas
+    const now = new Date();
+    const activeCarouselSlides = (settings?.carruselHero || [])
+        .filter(slide => {
+            const start = slide.fechaInicio ? new Date(slide.fechaInicio) : null;
+            const end = slide.fechaFin ? new Date(slide.fechaFin) : null;
+            const isStarted = !start || now >= start;
+            const isNotExpired = !end || now <= end;
+            return isStarted && isNotExpired;
+        })
+        .sort((a, b) => {
+            const orderA = typeof a.orden === 'number' ? a.orden : 9999;
+            const orderB = typeof b.orden === 'number' ? b.orden : 9999;
+            return orderA - orderB;
+        });
 
     useSEO(`Inscripciones Abiertas ${inscripData.etiqueta}`, `Escuela de Psicología Social Pico Truncado. Formamos agentes de cambio en la Patagonia. Inscripciones abiertas ${inscripData.etiqueta}.`);
 
@@ -48,17 +65,23 @@ const Home = () => {
                                 <Button to="/quienes-somos" variant="outline" className="text-ps-white hover:text-ps-black">Conocé la institución</Button>
                             </div>
                         </div>
-                        <div className="hidden lg:flex justify-center">
-                            <div className="relative">
-                                <div className="w-80 h-80 border-4 border-ps-green rounded-2xl rotate-3 absolute -top-4 -left-4"></div>
-                                <div className="w-80 h-80 bg-ps-gray rounded-2xl relative z-10 flex items-center justify-center p-8 text-center text-ps-white">
-                                    <div>
-                                        <span className="block text-5xl font-black text-ps-green mb-2">3 AÑOS</span>
-                                        <span className="text-lg opacity-80 italic italic leading-none">de formación profesional</span>
+                        {activeCarouselSlides.length > 0 ? (
+                            <div className="flex justify-center">
+                                <HeroCarousel slides={activeCarouselSlides} />
+                            </div>
+                        ) : (
+                            <div className="hidden lg:flex justify-center">
+                                <div className="relative">
+                                    <div className="w-80 h-80 border-4 border-ps-green rounded-2xl rotate-3 absolute -top-4 -left-4"></div>
+                                    <div className="w-80 h-80 bg-ps-gray rounded-2xl relative z-10 flex items-center justify-center p-8 text-center text-ps-white">
+                                        <div>
+                                            <span className="block text-5xl font-black text-ps-green mb-2">3 AÑOS</span>
+                                            <span className="text-lg opacity-80 italic italic leading-none">de formación profesional</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </section>

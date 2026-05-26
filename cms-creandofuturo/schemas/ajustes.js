@@ -73,6 +73,60 @@ export default {
             title: 'URL de Facebook',
             type: 'url',
             description: 'Link completo a tu página de Facebook'
+        },
+        {
+            name: 'carruselHero',
+            title: 'Carrusel del Hero (Inicio)',
+            type: 'array',
+            description: 'Imágenes informativas para el carrusel de la página de inicio (reemplaza el recuadro estático)',
+            of: [
+                {
+                    type: 'image',
+                    options: {
+                        hotspot: true
+                    },
+                    fields: [
+                        {
+                            name: 'alt',
+                            type: 'string',
+                            title: 'Texto alternativo (Para SEO y Accesibilidad)',
+                            validation: Rule => Rule.required()
+                        },
+                        {
+                            name: 'link',
+                            type: 'string',
+                            title: 'Enlace (opcional)',
+                            description: 'Ruta relativa (ej: /oferta-academica) o link completo externo (ej: https://...)'
+                        },
+                        {
+                            name: 'orden',
+                            type: 'number',
+                            title: 'Número de orden (opcional)',
+                            description: 'Permite forzar un orden numérico. Si se deja vacío, se usa el orden en que se arrastran los elementos.'
+                        },
+                        {
+                            name: 'duracion',
+                            type: 'number',
+                            title: 'Duración en pantalla (segundos)',
+                            description: 'Tiempo que dura la imagen visible en segundos. Por defecto es 5 segundos.',
+                            initialValue: 5,
+                            validation: Rule => Rule.min(1)
+                        },
+                        {
+                            name: 'fechaInicio',
+                            type: 'datetime',
+                            title: 'Vigencia: Mostrar desde',
+                            description: 'Fecha y hora a partir de la cual se mostrará esta imagen. Si está vacía, se muestra inmediatamente.',
+                        },
+                        {
+                            name: 'fechaFin',
+                            type: 'datetime',
+                            title: 'Vigencia: Mostrar hasta',
+                            description: 'Fecha y hora límite para mostrar esta imagen. Si está vacía, no tiene vencimiento.',
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

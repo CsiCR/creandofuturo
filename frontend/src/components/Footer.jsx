@@ -7,7 +7,7 @@ const Footer = () => {
     const [settings, setSettings] = useState(null);
 
     useEffect(() => {
-        const query = '*[_type == "ajustes"][0] { telefono, email, direccion, inscripcionesEtiqueta, instagramUrl, facebookUrl }';
+        const query = '*[_id == "ajustes"][0] { telefono, email, direccion, inscripcionesEtiqueta, instagramUrl, facebookUrl }';
         client.fetch(query)
             .then(data => setSettings(data))
             .catch(console.error);

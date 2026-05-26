@@ -12,7 +12,7 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const query = '*[_type == "ajustes"][0] { inscripcionesEtiqueta }';
+        const query = '*[_id == "ajustes"][0] { inscripcionesEtiqueta }';
         client.fetch(query)
             .then(data => {
                 if (data?.inscripcionesEtiqueta) setInscripEtiqueta(data.inscripcionesEtiqueta);

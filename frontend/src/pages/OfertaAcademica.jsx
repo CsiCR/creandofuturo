@@ -33,7 +33,7 @@ const OfertaAcademica = () => {
                 estado,
                 linkInscripcion
             },
-            "ajustes": *[_type == "ajustes"][0] { telefono, inscripcionesEtiqueta }
+            "ajustes": *[_id == "ajustes"][0] { telefono, inscripcionesEtiqueta }
         }`;
 
         client.fetch(query)

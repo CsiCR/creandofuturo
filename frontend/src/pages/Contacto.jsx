@@ -13,7 +13,7 @@ const Contacto = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const query = `*[_type == "ajustes"][0] {
+        const query = `*[_id == "ajustes"][0] {
             telefono,
             email,
             direccion,
